@@ -15,10 +15,8 @@ def pdf_upload():
     num_pages = len(pdf.pages)
     for page_num in range(num_pages):
         page = pdf.pages[page_num]
-        if 'İl' in words:
-            continue
-        else:
-            words += page.extract_text().split(" ")
+        words += page.extract_text().split("\n")
+        print(words)
     return render_template("words.html", words=words)
 
 if __name__ == "__main__":
