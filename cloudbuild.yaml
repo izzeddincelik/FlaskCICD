@@ -8,11 +8,11 @@ steps:
   - name: "gcr.io/cloud-builders/gcloud"
     args: ["run", "deploy", "flaskapp", "--image", "gcr.io/fiverr-136c2/flaskapp","--region", "us-central1"]
   - name: "gcr.io/cloud-builders/gcloud"
-    args: ['container', 'images', 'list-tags', 'gcr.io/fiverr-136c2/flaskapp', '--sort-by=TIMESTAMP', '--limit=3', '--format=\'value(digest)\'']
+    args: ["container", "images", "list-tags", "gcr.io/fiverr-136c2/flaskapp", "--sort-by=TIMESTAMP", "--limit=3", "--format='value(digest)'"]
     id: list_images
   - name: "gcr.io/cloud-builders/gcloud"
-    args: ['container', 'images', 'delete', '$(echo $(cat /builder/home/image_digests.txt) | tr " " "\n")', '-q']
+    args: ["container", "images", "delete", "$(echo $(cat /builder/home/image_digests.txt) | tr ' ' '\n')", "-q"]
     env:
-      - 'DIGESTS=$(cat /builder/home/${ID}.txt)'
+      - "DIGESTS=$(cat /builder/home/${ID}.txt)"
     id: delete_images
-    waitFor: ['list_images']
+    waitFor: ["list_images"]
