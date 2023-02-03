@@ -10,6 +10,7 @@ def index():
 @app.route("/pdf_upload", methods=["POST"])
 def pdf_upload():
     file = request.files["pdf_file"]
+    
     pdf = PyPDF2.PdfReader(file)
     words = []
     num_pages = len(pdf.pages)
