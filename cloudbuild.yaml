@@ -1,9 +1,9 @@
 steps:
   - name: "gcr.io/cloud-builders/git"
     args: ["clone", "https://github.com/izzeddincelik/FlaskCICD.git"]
-  - name: "gcr.io/cloud-builders/docker"
-    args: ["build", "-t", "gcr.io/fiverr-136c2/flaskapp", "."]
-  - name: "gcr.io/cloud-builders/docker"
-    args: ["push", "gcr.io/fiverr-136c2/flaskapp"]
-  - name: "gcr.io/cloud-builders/gcloud"
-    args: ["run", "deploy", "flaskapp", "--image", "gcr.io/fiverr-136c2/flaskapp","--region", "us-central1"]
+  - name: "gcr.io/cloud-builders/dockerBuild"
+    args: ["build", "-t", "gcr.io/${PROJECT_ID}/${IMAGE_NAME}", "."]
+  - name: "gcr.io/cloud-builders/dockerPush"
+    args: ["push", "gcr.io/${PROJECT_ID}/${IMAGE_NAME}"]
+  - name: "gcr.io/cloud-builders/gcloudRun"
+    args: ["run", "deploy", "flaskapp", "--image", "gcr.io/${PROJECT_ID}/${IMAGE_NAME}","--region", "us-central1"]
