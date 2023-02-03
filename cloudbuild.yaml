@@ -1,0 +1,9 @@
+steps:
+  - name: "gcr.io/cloud-builders/git"
+    args: ["clone", "https://github.com/izzeddincelik/FlaskCICD.git"]
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["build", "-t", "gcr.io/fiverr-136c2/flaskapp", "."]
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "gcr.io/fiverr-136c2/flaskapp"]
+  - name: "gcr.io/cloud-builders/gcloud"
+    args: ["run", "deploy", "flaskapp", "--image", "gcr.io/fiverr-136c2/flask-app"]
