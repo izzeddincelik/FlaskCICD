@@ -10,7 +10,7 @@ steps:
   - name: gcr.io/cloud-builders/gcloud
     args: ["auth", "configure-docker"]
   - name: gcr.io/cloud-builders/gcloud
-    args: ["container", "images", "list-tags", "gcr.io/fiverr-136c2/flaskapp", "--format=json", "--sort-by=~timestamp", "--filter=tags != latest"]
+    args: ["container", "images", "list-tags", "gcr.io/fiverr-136c2/flaskapp", "--format=json", "--sort-by=~timestamp"]
     id: list_images
     env:
       - "IMAGE_TAGS=$(echo ${_DEFAULT_APP_DEPLOYMENT_TAGS} | jq -r '.[] | .tags[]')"
