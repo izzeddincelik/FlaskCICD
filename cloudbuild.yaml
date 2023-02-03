@@ -13,6 +13,6 @@ steps:
   - name: "gcr.io/cloud-builders/gcloud"
     args: ["container", "images", "delete", "$(echo $(cat /builder/home/image_digests.txt) | tr ' ' '\n')", "-q"]
     env:
-      - "DIGESTS=$(cat /builder/home/${ID}.txt)"
+      - "DIGESTS=$(cat /builder/home/image_digests.txt)"
     id: delete_images
     waitFor: ["list_images"]
