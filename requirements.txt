@@ -1,2 +1,2 @@
-flask==2.2.2
-pypdf2==2.3.0
+flask
+pypdf2
