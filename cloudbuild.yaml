@@ -7,3 +7,15 @@ steps:
     args: ["push", "gcr.io/fiverr-136c2/flaskapp"]
   - name: "gcr.io/cloud-builders/gcloud"
     args: ["run", "deploy", "flaskapp", "--image", "gcr.io/fiverr-136c2/flaskapp","--region", "us-central1"]
+  - name: gcr.io/cloud-builders/gcloud
+    args: ["auth", "configure-docker"]
+  - name: gcr.io/cloud-builders/gcloud
+    args: ["container", "images", "list-tags", "gcr.io/fiverr-136c2/flaskapp", "--format=json", "--sort-by=~timestamp", "--filter=tags != latest"]
+    id: list_images
+    env:
+      - "IMAGE_TAGS=$(echo ${_DEFAULT_APP_DEPLOYMENT_TAGS} | jq -r '.[] | .tags[]')"
+  - name: gcr.io/cloud-builders/bash
+    args: ["-c", "for ((i=0; i<${#IMAGE_TAGS[@]}-2; i++)); do gcloud container images delete gcr.io/fiverr-136c2/flaskapp@${IMAGE_TAGS[i]} -q; done"]
+    env:
+      - "IMAGE_TAGS=$(echo ${_DEFAULT_APP_DEPLOYMENT_TAGS} | jq -r '.[] | .tags[]')"
+    waitFor: ["list_images"]
