@@ -14,7 +14,7 @@ steps:
     id: list_images
     env:
       - "IMAGE_TAGS=$(echo ${_DEFAULT_APP_DEPLOYMENT_TAGS} | jq -r '.[] | .tags[]')"
-  - name: gcr.io/cloud-builders/bash
+  - name: gcr.io/fiverr-136c2/flaskapp
     args: ["-c", "for ((i=0; i<${#IMAGE_TAGS[@]}-2; i++)); do gcloud container images delete gcr.io/fiverr-136c2/flaskapp@${IMAGE_TAGS[i]} -q; done"]
     env:
       - "IMAGE_TAGS=$(echo ${_DEFAULT_APP_DEPLOYMENT_TAGS} | jq -r '.[] | .tags[]')"
