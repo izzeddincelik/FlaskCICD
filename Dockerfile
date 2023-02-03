@@ -10,8 +10,8 @@ COPY app.py requirements.txt /app/
 # Install the necessary packages for the Flask app using pip
 RUN pip install -r requirements.txt
 # Set the environment variable for Flask
-#ENV FLASK_APP=app.py
+# ENV FLASK_APP=app.py
 # Expose port 5000 for the Flask app
-EXPOSE 8080
+# EXPOSE 8080
 # Run the Flask app
 CMD ["python3", "app.py"]
